@@ -1,10 +1,18 @@
 {
-  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-10-17/server.schema.json",
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.reppingai/repping",
   "title": "Repping.ai",
-  "description": "Read and prepare changes to a Repping.ai creator workspace: posts, calendar, Link in Bio, analytics. Human approval required.",
+  "description": "Read and prepare posts, calendar, links and analytics in Repping.ai. Changes require human approval.",
   "version": "1.0.0",
   "websiteUrl": "https://www.repping.ai/mcp",
-  "repository": { "url": "https://github.com/reppingai/repping-mcp", "source": "github" },
-  "remotes": [ { "type": "streamable-http", "url": "https://www.repping.ai/api/mcp" } ]
+  "repository": {
+    "url": "https://github.com/reppingai/repping-mcp",
+    "source": "github"
+  },
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://www.repping.ai/api/mcp"
+    }
+  ]
 }
