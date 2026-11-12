@@ -1,6 +1,6 @@
 {
   "name": "repping",
-  "description": "Official Repping.ai plugins for Claude Code: the Repping.ai MCP server and creator content skills.",
+  "description": "Official Repping.ai creator workflow skill and MCP configuration; MCP host compatibility depends on approved HTTPS OAuth callbacks.",
   "owner": {
     "name": "Repping.ai",
     "email": "support@repping.ai"
@@ -9,7 +9,7 @@
     {
       "name": "repping",
       "source": "./",
-      "description": "Repping.ai MCP server plus a creator content workflow skill.",
+      "description": "Creator workflow skill and MCP configuration. OAuth requires a trusted HTTPS callback; localhost callbacks are unsupported.",
       "homepage": "https://www.repping.ai/mcp"
     }
   ]

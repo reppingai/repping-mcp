@@ -1,7 +1,7 @@
 {
   "name": "repping",
-  "version": "1.0.0",
-  "description": "Connect Claude Code to your Repping.ai creator workspace (posts, calendar, Link in Bio, analytics) and use a creator content workflow skill. Every change is approved by you in Repping.ai.",
+  "version": "1.0.1",
+  "description": "Creator content workflow skill with Repping.ai MCP configuration. MCP authentication requires an approved HTTPS callback origin; localhost callbacks are unsupported. Workspace changes require human approval.",
   "author": {
     "name": "Repping.ai",
     "email": "support@repping.ai",

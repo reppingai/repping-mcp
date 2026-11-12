@@ -2,7 +2,8 @@
 
 # Repping.ai MCP server and creator content skill
 
-Connect Claude, ChatGPT, Cursor or Codex to your [Repping.ai](https://www.repping.ai) workspace.
+Connect a supported OAuth MCP host to your [Repping.ai](https://www.repping.ai) workspace.
+Callback origins must pass the server’s trusted-origin policy. Protocol support alone does not guarantee client compatibility.
 Ask about your posts, calendar, [Link in Bio page](https://learn.repping.ai/features/link-in-bio) and analytics.
 The assistant prepares changes, and **you approve each change in Repping.ai** before anything runs.
 
@@ -24,9 +25,32 @@ Full product documentation: [repping.ai/mcp](https://www.repping.ai/mcp)
 | **ChatGPT** | Add a custom MCP connector with the server URL and OAuth authentication. Your plan and workspace settings control this option. |
 | **Cursor** | Copy [`examples/cursor-mcp.json`](examples/cursor-mcp.json) into `.cursor/mcp.json` |
 | **Codex CLI** | Add [`examples/codex-config.toml`](examples/codex-config.toml) to `~/.codex/config.toml` |
-| **Any MCP client** | Streamable HTTP transport, OAuth 2.1 with PKCE and dynamic client registration |
+| **Other MCP clients** | Streamable HTTP, OAuth 2.1 and PKCE; requires an approved HTTPS callback origin |
 
-After you connect, sign in to Repping.ai, choose one workspace and approve the requested access.
+The entries above describe configuration formats, not verified compatibility for every client.
+Claude Code, Cursor and Codex CLI connections that use localhost callbacks are not supported by the current HTTPS-only policy.
+Other hosts need their exact HTTPS callback origin approved by the server operator before registration can succeed.
+The standalone creator-content-workflow skill remains usable without an MCP connection.
+
+After a supported host connects, sign in to Repping.ai, choose one workspace and approve the requested access.
+
+## OAuth compatibility and directory health checks
+
+The server restricts OAuth redirects at client registration, authorization and token exchange.
+Its default trusted origins are `https://claude.ai`, `https://claude.com`, `https://chatgpt.com` and `https://chat.openai.com`.
+Deployments can override this list through `MCP_ALLOWED_REDIRECT_ORIGINS`; the configured list replaces the defaults.
+Only exact approved HTTPS origins are accepted. Wildcards, localhost callbacks and arbitrary client origins are not accepted.
+Never disable this restriction to make a directory health check pass.
+
+An unauthenticated MCP request can return HTTP 401. That alone does not establish downtime.
+Glama requires connector ownership verification and a separate OAuth test profile for authenticated health checks and tool discovery.
+Use an isolated test workspace with no private content or connected social accounts.
+Review its requested scopes and approve only those needed for inspection.
+A server operator must verify the host’s actual callback origin before adding it to the allowlist.
+Do not place access tokens, refresh tokens or test credentials in this public repository.
+
+Background analytics synchronization does not invalidate an approved proposal solely through analytics metadata changes.
+The server still checks destination authority and resource health before execution.
 
 ## Tools
 
