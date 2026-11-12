@@ -44,7 +44,9 @@ Never disable this restriction to make a directory health check pass.
 
 An unauthenticated MCP request can return HTTP 401. That alone does not establish downtime.
 Glama requires connector ownership verification and a separate OAuth test profile for authenticated health checks and tool discovery.
-Use an isolated test workspace with no private content or connected social accounts.
+Use a separate non-admin test account and an isolated test workspace, with no private content or connected social accounts.
+An empty workspace under a production account is insufficient: personal features can span that account’s workspaces.
+Prefer `repping:read` and, when required for recurring checks, `offline_access`. Never grant staff scopes to a directory.
 Review its requested scopes and approve only those needed for inspection.
 A server operator must verify the host’s actual callback origin before adding it to the allowlist.
 Do not place access tokens, refresh tokens or test credentials in this public repository.
@@ -65,7 +67,8 @@ The server still checks destination authority and resource health before executi
 ## Safety model
 
 - OAuth 2.1 with PKCE. You sign in yourself, so the AI app never sees your password.
-- Each connection can access only the one workspace you select.
+- Workspace features are bound to the workspace you select. Personal features can span your own account’s workspaces.
+- Staff scopes are separate and can reach permitted platform-wide data. Do not grant them to directory health checks.
 - The assistant can read and prepare. It **cannot approve, publish or run** a change.
 - You can revoke any connection under **Settings → MCP** in Repping.ai.
 - Reading and preparing through MCP uses no Repping.ai credits.
