@@ -1,0 +1,16 @@
+{
+  "name": "repping",
+  "description": "Official Repping.ai plugins for Claude Code: the Repping.ai MCP server and creator content skills.",
+  "owner": {
+    "name": "Repping.ai",
+    "email": "support@repping.ai"
+  },
+  "plugins": [
+    {
+      "name": "repping",
+      "source": "./",
+      "description": "Repping.ai MCP server plus a creator content workflow skill.",
+      "homepage": "https://www.repping.ai/mcp"
+    }
+  ]
+}

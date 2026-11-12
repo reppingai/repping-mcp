@@ -1,0 +1,5 @@
+{
+  "mcpServers": {
+    "repping": { "url": "https://www.repping.ai/api/mcp" }
+  }
+}

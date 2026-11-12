@@ -1,0 +1,22 @@
+{
+  "name": "repping",
+  "version": "1.0.0",
+  "description": "Connect Claude Code to your Repping.ai creator workspace (posts, calendar, Link in Bio, analytics) and use a creator content workflow skill. Every change is approved by you in Repping.ai.",
+  "author": {
+    "name": "Repping.ai",
+    "email": "support@repping.ai",
+    "url": "https://www.repping.ai"
+  },
+  "homepage": "https://www.repping.ai/mcp",
+  "repository": "https://github.com/reppingai/repping-mcp",
+  "license": "MIT",
+  "keywords": [
+    "mcp",
+    "social-media",
+    "creator",
+    "link-in-bio",
+    "scheduling",
+    "content"
+  ],
+  "privacyPolicyUrl": "https://www.repping.ai/privacy"
+}
