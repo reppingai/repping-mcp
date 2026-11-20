@@ -3,7 +3,6 @@
 # Repping.ai MCP server and creator content skill
 
 Connect a supported OAuth MCP host to your [Repping.ai](https://www.repping.ai) workspace.
-Callback origins must pass the server’s trusted-origin policy. Protocol support alone does not guarantee client compatibility.
 Ask about your posts, calendar, [Link in Bio page](https://learn.repping.ai/features/link-in-bio) and analytics.
 The assistant prepares changes, and **you approve each change in Repping.ai** before anything runs.
 
@@ -12,6 +11,8 @@ This repo contains:
 - **Setup guides** for the remote MCP server at `https://www.repping.ai/api/mcp`
 - **A Claude Code plugin** that bundles the server connection and a skill
 - **`creator-content-workflow`**, a skill for planning, drafting, adapting and reviewing social posts. It works with or without Repping.ai.
+
+> **Want end-to-end scheduling and analytics from your AI agent?** See [**social-media-scheduler-skill**](https://github.com/reppingai/social-media-scheduler-skill): one skill to schedule, bulk-schedule, cross-post and analyze posts on 20+ platforms from Claude Code, Codex, Cursor, Gemini CLI and ChatGPT.
 
 Full product documentation: [repping.ai/mcp](https://www.repping.ai/mcp)
 
@@ -25,11 +26,12 @@ Full product documentation: [repping.ai/mcp](https://www.repping.ai/mcp)
 | **ChatGPT** | Add a custom MCP connector with the server URL and OAuth authentication. Your plan and workspace settings control this option. |
 | **Cursor** | Copy [`examples/cursor-mcp.json`](examples/cursor-mcp.json) into `.cursor/mcp.json` |
 | **Codex CLI** | Add [`examples/codex-config.toml`](examples/codex-config.toml) to `~/.codex/config.toml` |
-| **Other MCP clients** | Streamable HTTP, OAuth 2.1 and PKCE; requires an approved HTTPS callback origin |
+| **Other MCP clients** | Streamable HTTP, OAuth 2.1 and PKCE |
 
-The entries above describe configuration formats, not verified compatibility for every client.
-Claude Code, Cursor and Codex CLI connections that use localhost callbacks are not supported by the current HTTPS-only policy.
-Other hosts need their exact HTTPS callback origin approved by the server operator before registration can succeed.
+| **VS Code** | Add an HTTP MCP server named `repping` with the server URL |
+| **Gemini CLI, Windsurf** | Add a Streamable HTTP server named `repping` with the server URL |
+
+Desktop and terminal agents (Claude Code, Codex CLI, Cursor, VS Code, Windsurf, Gemini CLI) sign in through a callback on your own computer or through their app link. PKCE is always required.
 The standalone creator-content-workflow skill remains usable without an MCP connection.
 
 After a supported host connects, sign in to Repping.ai, choose one workspace and approve the requested access.
@@ -37,9 +39,9 @@ After a supported host connects, sign in to Repping.ai, choose one workspace and
 ## OAuth compatibility and directory health checks
 
 The server restricts OAuth redirects at client registration, authorization and token exchange.
-Its default trusted origins are `https://claude.ai`, `https://claude.com`, `https://chatgpt.com` and `https://chat.openai.com`.
-Deployments can override this list through `MCP_ALLOWED_REDIRECT_ORIGINS`; the configured list replaces the defaults.
-Only exact approved HTTPS origins are accepted. Wildcards, localhost callbacks and arbitrary client origins are not accepted.
+Web hosts must use an approved HTTPS origin. The defaults are `https://claude.ai`, `https://claude.com`, `https://chatgpt.com`, `https://chat.openai.com`, `https://vscode.dev` and `https://insiders.vscode.dev`.
+Native agents may use a loopback callback (`127.0.0.1`, `localhost` or `[::1]`, any port) or a named app scheme: `cursor`, `vscode`, `vscode-insiders` or `windsurf`.
+Wildcards and arbitrary web origins are not accepted.
 Never disable this restriction to make a directory health check pass.
 
 An unauthenticated MCP request can return HTTP 401. That alone does not establish downtime.
@@ -61,6 +63,7 @@ The server still checks destination authority and resource health before executi
 | `repping_profile` | Identifies the connected account and workspace. It returns no email or username. |
 | `repping_discover` | Lists data areas, operations and exact input schemas. |
 | `repping_read` | Reads posts, the calendar, the Link in Bio page, media, analytics and the credit ledger. |
+| `repping_upload_media` | Uploads a local image or video to your media library. It never schedules or publishes. |
 | `repping_prepare` | Saves one proposed change and returns a review link. It does not publish anything. |
 | `repping_action_status` | Shows the status of a prepared change after a person reviews it. |
 
@@ -94,6 +97,7 @@ Install only the skill: copy the folder into `~/.claude/skills/`.
 
 - Website: [repping.ai](https://www.repping.ai)
 - MCP docs: [repping.ai/mcp](https://www.repping.ai/mcp)
+- Scheduling and analytics skill: [social-media-scheduler-skill](https://github.com/reppingai/social-media-scheduler-skill)
 - Free creator guides and tools: [learn.repping.ai](https://learn.repping.ai)
 - Support: support@repping.ai
 - Privacy: [repping.ai/privacy](https://www.repping.ai/privacy)
